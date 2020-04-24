@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".contactslist.ContactsListActivity">
 
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
