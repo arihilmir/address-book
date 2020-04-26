@@ -9,4 +9,8 @@ class ContactsRepository(private val contactsDao: ContactsDao) {
     fun getContact(id: String) : LiveData<Contact?> {
         return contactsDao.getContactsById(id)
     }
+
+    fun insert(contact: Contact) {
+        contactsDao.insert(contact)
+    }
 }

@@ -10,9 +10,9 @@ data class Contact constructor(
     @ColumnInfo val name: String,
     @ColumnInfo(name = "phone_number") val phoneNumber: String,
     @ColumnInfo val email: String = "",
-    @ColumnInfo val street: String = "",
-    @ColumnInfo val city: String = "",
-    @ColumnInfo val state: String = "",
-    @ColumnInfo val zip: Int = 0,
+    @ColumnInfo val street: String? = "",
+    @ColumnInfo val city: String? = "",
+    @ColumnInfo val state: String? = "",
+    @ColumnInfo val zip: Int? = 0,
     @PrimaryKey @ColumnInfo val id: String = UUID.randomUUID().toString()
     )
