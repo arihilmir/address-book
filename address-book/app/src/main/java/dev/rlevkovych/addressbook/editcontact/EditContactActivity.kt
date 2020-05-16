@@ -65,16 +65,19 @@ class EditContactActivity : AppCompatActivity() {
         val saveBtn = findViewById<ImageButton>(R.id.saveBtn)
         saveBtn.setOnClickListener {
 
+            val street = findViewById<TextView>(R.id.userStreet).text.toString()
+            val city = findViewById<TextView>(R.id.userCity).text.toString()
+            val state = findViewById<TextView>(R.id.userState).text.toString()
             val zip = findViewById<TextView>(R.id.userZip).text.toString()
 
             var newContact = Contact(
                 findViewById<TextView>(R.id.userName).text.toString(),
                 findViewById<TextView>(R.id.userPhone).text.toString(),
                 findViewById<TextView>(R.id.userEmail).text.toString(),
-                findViewById<TextView>(R.id.userStreet).text.toString(),
-                findViewById<TextView>(R.id.userCity).text.toString(),
-                findViewById<TextView>(R.id.userState).text.toString(),
 
+                if(street == "") null else street,
+                if(city == "") null else city,
+                if(state == "") null else state,
                 if(zip == "") null else zip.toInt()
             );
 
