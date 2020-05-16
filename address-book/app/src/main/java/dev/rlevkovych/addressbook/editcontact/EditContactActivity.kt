@@ -10,15 +10,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.room.Update
 import dev.rlevkovych.addressbook.R
 import dev.rlevkovych.addressbook.contactsdetail.ContactsDetailActivity
-import dev.rlevkovych.addressbook.contactslist.ContactsListActivity
-import dev.rlevkovych.addressbook.contactslist.ContactsListViewModel
 import dev.rlevkovych.addressbook.data.Contact
 
 class EditContactActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: ContactsListViewModel
+    private lateinit var viewModel: EditContactViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +26,7 @@ class EditContactActivity : AppCompatActivity() {
         val contactId = intent.getStringExtra("contactId")
         var contact: Contact? = Contact("", "");
 
-        viewModel = ViewModelProviders.of(this).get(ContactsListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(EditContactViewModel::class.java)
         viewModel.allContacts.observe(this, Observer { items ->
             if (items.isNotEmpty()) {
                 contact = items.find { contact -> contact.id == contactId }
@@ -65,7 +64,25 @@ class EditContactActivity : AppCompatActivity() {
 
         val saveBtn = findViewById<ImageButton>(R.id.saveBtn)
         saveBtn.setOnClickListener {
-            // TODO Save edited contact here.
+
+            var newContact = Contact(
+                findViewById<TextView>(R.id.userName).text.toString(),
+                findViewById<TextView>(R.id.userPhone).text.toString(),
+                findViewById<TextView>(R.id.userEmail).text.toString(),
+                findViewById<TextView>(R.id.userStreet).text.toString(),
+                findViewById<TextView>(R.id.userCity).text.toString(),
+                findViewById<TextView>(R.id.userState).text.toString(),
+                findViewById<TextView>(R.id.userZip).text.toString().toInt()
+            );
+
+            if(contactId != null){
+                newContact.id = contactId
+                viewModel.update(newContact)
+            }
+            else{
+                viewModel.create(newContact)
+            }
+
             val intent = Intent(this, ContactsDetailActivity::class.java).apply {
                 putExtra("contactId", contactId)
             }
