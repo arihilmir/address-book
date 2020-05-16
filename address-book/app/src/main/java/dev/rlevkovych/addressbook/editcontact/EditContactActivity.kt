@@ -65,6 +65,8 @@ class EditContactActivity : AppCompatActivity() {
         val saveBtn = findViewById<ImageButton>(R.id.saveBtn)
         saveBtn.setOnClickListener {
 
+            val zip = findViewById<TextView>(R.id.userZip).text.toString()
+
             var newContact = Contact(
                 findViewById<TextView>(R.id.userName).text.toString(),
                 findViewById<TextView>(R.id.userPhone).text.toString(),
@@ -72,7 +74,8 @@ class EditContactActivity : AppCompatActivity() {
                 findViewById<TextView>(R.id.userStreet).text.toString(),
                 findViewById<TextView>(R.id.userCity).text.toString(),
                 findViewById<TextView>(R.id.userState).text.toString(),
-                findViewById<TextView>(R.id.userZip).text.toString().toInt()
+
+                if(zip == "") null else zip.toInt()
             );
 
             if(contactId != null){
