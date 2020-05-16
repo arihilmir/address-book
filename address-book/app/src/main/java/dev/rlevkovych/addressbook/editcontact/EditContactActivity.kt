@@ -30,7 +30,6 @@ class EditContactActivity : AppCompatActivity() {
         viewModel.allContacts.observe(this, Observer { items ->
             if (items.isNotEmpty()) {
                 contact = items.find { contact -> contact.id == contactId }
-                Log.i("contact", contact!!.name);
 
                 val userName = findViewById<TextView>(R.id.userName)
                 userName.text = contact!!.name;

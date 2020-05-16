@@ -31,69 +31,73 @@ class ContactsDetailActivity : AppCompatActivity() {
             if (items.isNotEmpty()) {
                 contact = items.find { contact -> contact.id == contactId }
 
-                val userName = findViewById<TextView>(R.id.userName)
-                userName.text = contact!!.name;
+                if (contact != null) {
+                    val userName = findViewById<TextView>(R.id.userName)
+                    userName.text = contact?.name;
 
-                val userPhone = findViewById<TextView>(R.id.userPhone)
-                userPhone.text = contact!!.phoneNumber;
+                    val userPhone = findViewById<TextView>(R.id.userPhone)
+                    userPhone.text = contact?.phoneNumber;
 
-                val userEmail = findViewById<TextView>(R.id.userEmail)
-                userEmail.text = contact!!.email
+                    val userEmail = findViewById<TextView>(R.id.userEmail)
+                    userEmail.text = contact?.email
 
-                if (contact!!.street != null) {
-                    val userStreet = findViewById<TextView>(R.id.userStreet)
-                    userStreet.text = contact!!.street;
+                    if (contact!!.street != null) {
+                        val userStreet = findViewById<TextView>(R.id.userStreet)
+                        userStreet.text = contact?.street;
+                    } else {
+                        val streetLabel = findViewById<TextView>(R.id.streetLabel)
+                        streetLabel.visibility = View.INVISIBLE;
+
+                        val userStreet = findViewById<TextView>(R.id.userStreet)
+                        userStreet.visibility = View.INVISIBLE;
+
+                        val streetDivider = findViewById<View>(R.id.streetDivider)
+                        streetDivider.visibility = View.INVISIBLE;
+                    }
+
+                    if (contact!!.city != null) {
+                        val userCity = findViewById<TextView>(R.id.userCity)
+                        userCity.text = contact?.city;
+                    } else {
+                        val cityLabel = findViewById<TextView>(R.id.cityLabel)
+                        cityLabel.visibility = View.INVISIBLE;
+
+                        val userCity = findViewById<TextView>(R.id.userCity)
+                        userCity.visibility = View.INVISIBLE;
+
+                        val cityDivider = findViewById<View>(R.id.cityDivider)
+                        cityDivider.visibility = View.INVISIBLE;
+                    }
+
+                    if (contact!!.state != null) {
+                        val userState = findViewById<TextView>(R.id.userState)
+                        userState.text = contact?.state;
+                    } else {
+                        val stateLabel = findViewById<TextView>(R.id.stateLabel)
+                        stateLabel.visibility = View.INVISIBLE;
+
+                        val userState = findViewById<TextView>(R.id.userState)
+                        userState.visibility = View.INVISIBLE;
+
+                        val stateDivider = findViewById<View>(R.id.stateDivider)
+                        stateDivider.visibility = View.INVISIBLE;
+                    }
+
+                    if (contact!!.zip != null) {
+                        val userZip = findViewById<TextView>(R.id.userZip)
+                        userZip.text = contact?.zip.toString();
+                    } else {
+                        val zipLabel = findViewById<TextView>(R.id.zipLabel)
+                        zipLabel.visibility = View.INVISIBLE;
+
+                        val userZip = findViewById<TextView>(R.id.userZip)
+                        userZip.visibility = View.INVISIBLE;
+
+                        val zipDivider = findViewById<View>(R.id.zipDivider)
+                        zipDivider.visibility = View.INVISIBLE;
+                    }
                 } else {
-                    val streetLabel = findViewById<TextView>(R.id.streetLabel)
-                    streetLabel.visibility = View.INVISIBLE;
-
-                    val userStreet = findViewById<TextView>(R.id.userStreet)
-                    userStreet.visibility = View.INVISIBLE;
-
-                    val streetDivider = findViewById<View>(R.id.streetDivider)
-                    streetDivider.visibility = View.INVISIBLE;
-                }
-
-                if (contact!!.city != null) {
-                    val userCity = findViewById<TextView>(R.id.userCity)
-                    userCity.text = contact!!.city;
-                } else {
-                    val cityLabel = findViewById<TextView>(R.id.cityLabel)
-                    cityLabel.visibility = View.INVISIBLE;
-
-                    val userCity = findViewById<TextView>(R.id.userCity)
-                    userCity.visibility = View.INVISIBLE;
-
-                    val cityDivider = findViewById<View>(R.id.cityDivider)
-                    cityDivider.visibility = View.INVISIBLE;
-                }
-
-                if (contact!!.state != null) {
-                    val userState = findViewById<TextView>(R.id.userState)
-                    userState.text = contact!!.state;
-                } else {
-                    val stateLabel = findViewById<TextView>(R.id.stateLabel)
-                    stateLabel.visibility = View.INVISIBLE;
-
-                    val userState = findViewById<TextView>(R.id.userState)
-                    userState.visibility = View.INVISIBLE;
-
-                    val stateDivider = findViewById<View>(R.id.stateDivider)
-                    stateDivider.visibility = View.INVISIBLE;
-                }
-
-                if (contact!!.zip != null) {
-                    val userZip = findViewById<TextView>(R.id.userZip)
-                    userZip.text = contact!!.zip.toString();
-                } else {
-                    val zipLabel = findViewById<TextView>(R.id.zipLabel)
-                    zipLabel.visibility = View.INVISIBLE;
-
-                    val userZip = findViewById<TextView>(R.id.userZip)
-                    userZip.visibility = View.INVISIBLE;
-
-                    val zipDivider = findViewById<View>(R.id.zipDivider)
-                    zipDivider.visibility = View.INVISIBLE;
+                    Toast.makeText(this, "Successfully deleted!", Toast.LENGTH_LONG).show()
                 }
             } else {
                 Toast.makeText(this, "No data", Toast.LENGTH_LONG).show()
