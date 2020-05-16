@@ -11,20 +11,16 @@ class ContactsRepository(private val contactsDao: ContactsDao) {
         return contactsDao.getContactsById(id)
     }
 
-//    fun insert(contact: Contact) {
-//        contactsDao.insert(contact)
-//    }
-
     fun insert(contact: Contact) {
         insertAsyncTask(contactsDao).execute(contact)
     }
 
-//    fun update(contact: Contact) {
-//        contactsDao.updateTask(contact)
-//    }
-
     fun update(contact: Contact) {
         updateAsyncTask(contactsDao).execute(contact)
+    }
+
+    fun delete(id: String) {
+        deleteAsyncTask(contactsDao).execute(id)
     }
 
     private class insertAsyncTask internal constructor(private val insertcontactsDao: ContactsDao) : AsyncTask<Contact, Void, Void>() {
@@ -39,6 +35,14 @@ class ContactsRepository(private val contactsDao: ContactsDao) {
 
         override fun doInBackground(vararg params: Contact): Void? {
             updatecontactsDao.updateTask(params[0])
+            return null
+        }
+    }
+
+    private class deleteAsyncTask internal constructor(private val deletecontactsDao: ContactsDao) : AsyncTask<String, Void, Void>() {
+
+        override fun doInBackground(vararg id: String): Void? {
+            deletecontactsDao.deleteContact(id[0])
             return null
         }
     }

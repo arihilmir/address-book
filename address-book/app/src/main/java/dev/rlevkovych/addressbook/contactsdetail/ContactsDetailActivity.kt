@@ -12,13 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import dev.rlevkovych.addressbook.R
 import dev.rlevkovych.addressbook.contactslist.ContactsListActivity
-import dev.rlevkovych.addressbook.contactslist.ContactsListViewModel
 import dev.rlevkovych.addressbook.data.Contact
 import dev.rlevkovych.addressbook.editcontact.EditContactActivity
 
 class ContactsDetailActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: ContactsListViewModel
+    private lateinit var viewModel: ContactsDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +26,7 @@ class ContactsDetailActivity : AppCompatActivity() {
         val contactId = intent.getStringExtra("contactId")
         var contact: Contact? = Contact("", "");
 
-        viewModel = ViewModelProviders.of(this).get(ContactsListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ContactsDetailViewModel::class.java)
         viewModel.allContacts.observe(this, Observer { items ->
             if (items.isNotEmpty()) {
                 contact = items.find { contact -> contact.id == contactId }
@@ -118,6 +117,7 @@ class ContactsDetailActivity : AppCompatActivity() {
         val deleteBtn = findViewById<ImageButton>(R.id.saveBtn)
         deleteBtn.setOnClickListener {
             // TODO Show delete confirmation popup here.
+            viewModel.delete(contactId)
             val intent = Intent(this, ContactsListActivity::class.java)
             startActivity(intent)
         }
