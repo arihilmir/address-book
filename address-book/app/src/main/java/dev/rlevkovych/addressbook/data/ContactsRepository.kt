@@ -1,6 +1,7 @@
 package dev.rlevkovych.addressbook.data
 
 import androidx.lifecycle.LiveData
+import dev.rlevkovych.addressbook.data.entities.Contact
 import dev.rlevkovych.addressbook.data.source.local.ContactsDao
 
 class ContactsRepository(private val contactsDao: ContactsDao) {

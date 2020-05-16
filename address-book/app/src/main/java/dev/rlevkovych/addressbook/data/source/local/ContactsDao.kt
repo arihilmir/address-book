@@ -2,7 +2,7 @@ package dev.rlevkovych.addressbook.data.source.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import dev.rlevkovych.addressbook.data.Contact
+import dev.rlevkovych.addressbook.data.entities.Contact
 
 @Dao interface ContactsDao {
     @Query("SELECT * FROM Contact") fun getContacts(): LiveData<List<Contact>>

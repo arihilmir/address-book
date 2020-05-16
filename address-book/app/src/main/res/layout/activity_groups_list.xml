@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".contactsdetail.ContactsDetailActivity">
+    tools:context=".groupslistactivity.GroupsListActivity">
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/groups_list"
+         />
 </androidx.constraintlayout.widget.ConstraintLayout>
