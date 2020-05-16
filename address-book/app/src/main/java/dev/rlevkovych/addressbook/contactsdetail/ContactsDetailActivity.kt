@@ -1,13 +1,13 @@
 package dev.rlevkovych.addressbook.contactsdetail
 
+import android.app.AlertDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import dev.rlevkovych.addressbook.R
@@ -120,10 +120,18 @@ class ContactsDetailActivity : AppCompatActivity() {
 
         val deleteBtn = findViewById<ImageButton>(R.id.saveBtn)
         deleteBtn.setOnClickListener {
-            // TODO Show delete confirmation popup here.
-            viewModel.delete(contactId)
-            val intent = Intent(this, ContactsListActivity::class.java)
-            startActivity(intent)
+            AlertDialog.Builder(this)
+                .setTitle("Are you sure?")
+                .setMessage("This will permanently delete the contact")
+                .setNeutralButton("CANCEL") { dialog, which ->
+                    dialog.cancel();
+                }
+                .setPositiveButton("DELETE") { dialog, which ->
+                    viewModel.delete(contactId)
+                    val intent = Intent(this, ContactsListActivity::class.java)
+                    startActivity(intent)
+                }
+                .show()
         }
     }
 }

@@ -12,37 +12,37 @@ class ContactsRepository(private val contactsDao: ContactsDao) {
     }
 
     fun insert(contact: Contact) {
-        insertAsyncTask(contactsDao).execute(contact)
+        InsertAsyncTask(contactsDao).execute(contact)
     }
 
     fun update(contact: Contact) {
-        updateAsyncTask(contactsDao).execute(contact)
+        UpdateAsyncTask(contactsDao).execute(contact)
     }
 
     fun delete(id: String) {
-        deleteAsyncTask(contactsDao).execute(id)
+        DeleteAsyncTask(contactsDao).execute(id)
     }
 
-    private class insertAsyncTask internal constructor(private val insertcontactsDao: ContactsDao) : AsyncTask<Contact, Void, Void>() {
+    private class InsertAsyncTask internal constructor(private val insertContactsDao: ContactsDao) : AsyncTask<Contact, Void, Void>() {
 
         override fun doInBackground(vararg params: Contact): Void? {
-            insertcontactsDao.insert(params[0])
+            insertContactsDao.insert(params[0])
             return null
         }
     }
 
-    private class updateAsyncTask internal constructor(private val updatecontactsDao: ContactsDao) : AsyncTask<Contact, Void, Void>() {
+    private class UpdateAsyncTask internal constructor(private val updateContactsDao: ContactsDao) : AsyncTask<Contact, Void, Void>() {
 
         override fun doInBackground(vararg params: Contact): Void? {
-            updatecontactsDao.updateTask(params[0])
+            updateContactsDao.updateTask(params[0])
             return null
         }
     }
 
-    private class deleteAsyncTask internal constructor(private val deletecontactsDao: ContactsDao) : AsyncTask<String, Void, Void>() {
+    private class DeleteAsyncTask internal constructor(private val deleteContactsDao: ContactsDao) : AsyncTask<String, Void, Void>() {
 
         override fun doInBackground(vararg id: String): Void? {
-            deletecontactsDao.deleteContact(id[0])
+            deleteContactsDao.deleteContact(id[0])
             return null
         }
     }

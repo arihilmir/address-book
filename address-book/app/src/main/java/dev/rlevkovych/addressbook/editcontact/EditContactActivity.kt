@@ -1,16 +1,13 @@
 package dev.rlevkovych.addressbook.editcontact
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.room.Update
 import dev.rlevkovych.addressbook.R
 import dev.rlevkovych.addressbook.contactsdetail.ContactsDetailActivity
 import dev.rlevkovych.addressbook.data.Contact
