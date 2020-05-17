@@ -6,6 +6,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import dev.rlevkovych.addressbook.R
+import dev.rlevkovych.addressbook.data.entities.Group
 
 class GroupViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     RecyclerView.ViewHolder(inflater.inflate(R.layout.groups_list_item, parent, false)) {

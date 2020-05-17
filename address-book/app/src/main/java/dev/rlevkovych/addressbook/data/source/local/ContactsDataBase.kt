@@ -5,8 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import dev.rlevkovych.addressbook.data.entities.Contact
+import dev.rlevkovych.addressbook.data.entities.Group
+import dev.rlevkovych.addressbook.data.entities.GroupContactRelation
 
-@Database(entities = [Contact::class], version = 1)
+@Database(entities = [Contact::class, Group::class, GroupContactRelation::class], version = 1)
 abstract class ContactsDataBase : RoomDatabase() {
     abstract fun contactDao(): ContactsDao
 

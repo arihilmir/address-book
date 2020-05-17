@@ -2,10 +2,18 @@ package dev.rlevkovych.addressbook.groupslistactivity
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-
-data class Group(val name: String, var isActive: Boolean)
+import dev.rlevkovych.addressbook.data.ContactsRepository
+import dev.rlevkovych.addressbook.data.source.local.ContactsDataBase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class GroupsListViewModel(application: Application): AndroidViewModel(application) {
-    var availableGroups = listOf(Group("Family", true), Group("Work", false), Group("Friends", true))
-//            get() { return  }
+    private val repository: ContactsRepository
+
+    init {
+        val dao = ContactsDataBase.getInstance(application).contactDao()
+        repository = ContactsRepository(dao)
+    }
+    var availableGroups = repository.allGroups
 }
