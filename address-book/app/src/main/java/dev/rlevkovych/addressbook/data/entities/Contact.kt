@@ -14,5 +14,5 @@ data class Contact constructor(
     @ColumnInfo val city: String? = "",
     @ColumnInfo val state: String? = "",
     @ColumnInfo val zip: Int? = 0,
-    @PrimaryKey @ColumnInfo val id: String = UUID.randomUUID().toString()
+    @PrimaryKey @ColumnInfo var id: String = UUID.randomUUID().toString()
     )
