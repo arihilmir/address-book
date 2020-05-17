@@ -1,27 +1,38 @@
 package dev.rlevkovych.addressbook.groupslistactivity
 
+import android.app.AlertDialog
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.rlevkovych.addressbook.R
 import dev.rlevkovych.addressbook.contactslist.AccountDisplayOption
 import dev.rlevkovych.addressbook.contactslist.ContactsListActivity
+import dev.rlevkovych.addressbook.data.entities.Group
 import kotlinx.android.synthetic.main.activity_groups_list.*
+import kotlinx.android.synthetic.main.add_group.*
 import java.util.logging.Logger
 
 fun Context.hideKeyboard(view: View) {
-    val inputMethodManager = getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+    val inputMethodManager =
+        getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
@@ -46,6 +57,48 @@ class GroupsListActivity : AppCompatActivity() {
         configRecyclerView()
         configNavigation()
         configSearch()
+        configAddGroup()
+    }
+
+    private fun configAddGroup() {
+        add_group.setOnClickListener {
+            val dialogView = LayoutInflater.from(this).inflate(R.layout.add_group, null)
+            val builder = AlertDialog.Builder(this)
+                .setView(dialogView)
+
+            val alertDialog = builder.show()
+
+            alertDialog.new_group_name.addTextChangedListener(object: TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if(!s.isNullOrEmpty()) { alertDialog.create_new_group.isEnabled = true }
+                }
+            })
+            alertDialog.cancel_button.setOnClickListener {
+                alertDialog.dismiss()
+            }
+            alertDialog.create_new_group.setOnClickListener {
+                viewModel.saveGroupChanges(
+                    listOf(
+                        Group(
+                            name = alertDialog.new_group_name.text.toString(),
+                            isActive = false
+                        )
+                    )
+                )
+                alertDialog.dismiss()
+            }
+        }
     }
 
     override fun onPause() {
