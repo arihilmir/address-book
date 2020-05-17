@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import dev.rlevkovych.addressbook.R
 import dev.rlevkovych.addressbook.contactslist.ContactsListActivity
-import dev.rlevkovych.addressbook.data.Contact
+import dev.rlevkovych.addressbook.data.entities.Contact
 import dev.rlevkovych.addressbook.editcontact.EditContactActivity
 
 class ContactsDetailActivity : AppCompatActivity() {

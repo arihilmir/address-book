@@ -1,4 +1,4 @@
-package dev.rlevkovych.addressbook.data
+package dev.rlevkovych.addressbook.data.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

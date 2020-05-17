@@ -3,7 +3,7 @@ package dev.rlevkovych.addressbook.contactsdetail
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import dev.rlevkovych.addressbook.data.Contact
+import dev.rlevkovych.addressbook.data.entities.Contact
 import dev.rlevkovych.addressbook.data.ContactsRepository
 import dev.rlevkovych.addressbook.data.source.local.ContactsDataBase
 
