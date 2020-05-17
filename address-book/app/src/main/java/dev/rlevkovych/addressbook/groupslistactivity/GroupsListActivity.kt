@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import dev.rlevkovych.addressbook.R
+import dev.rlevkovych.addressbook.contactslist.AccountDisplayOption
 import dev.rlevkovych.addressbook.contactslist.ContactsListActivity
 import dev.rlevkovych.addressbook.data.source.local.ContactsDataBase
 import kotlinx.android.synthetic.main.activity_groups_list.*
@@ -21,6 +22,7 @@ import kotlinx.coroutines.launch
 class GroupsListActivity : AppCompatActivity() {
 
     private lateinit var viewModel: GroupsListViewModel
+    private val intentConfigKey = "dataConfig"
     var groupsAdapter = GroupsListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,12 +36,16 @@ class GroupsListActivity : AppCompatActivity() {
 
     private fun configNavigation() {
         display_all_contacts.setOnClickListener {
-            val intent = Intent(this, ContactsListActivity::class.java)
+            val intent = Intent(this, ContactsListActivity::class.java).apply {
+                putExtra(intentConfigKey, AccountDisplayOption.All.toString())
+            }
             startActivity(intent)
         }
 
         display_contacts_by_group.setOnClickListener {
-            val intent = Intent(this, ContactsListActivity::class.java)
+            val intent = Intent(this, ContactsListActivity::class.java).apply {
+                putExtra(intentConfigKey, AccountDisplayOption.Groups.toString())
+            }
             startActivity(intent)
         }
     }

@@ -32,6 +32,7 @@ class ContactsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     fun submitList(contactList: List<Contact>) {
         items = contactList
+        notifyDataSetChanged()
     }
 
     inner class ContactViewHolder constructor(

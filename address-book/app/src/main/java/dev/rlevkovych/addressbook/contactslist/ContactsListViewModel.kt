@@ -19,9 +19,9 @@ class ContactsListViewModel(application: Application, option: AccountDisplayOpti
     init {
         val contactsDao = ContactsDataBase.getInstance(application).contactDao()
         repository = ContactsRepository(contactsDao)
-        if (option == AccountDisplayOption.All)
-            allContacts = repository.allContacts
+        allContacts = if (option == AccountDisplayOption.All)
+            repository.allContacts
         else
-            allContacts = repository.contactsFromActiveGroups
+            repository.contactsFromActiveGroups
     }
 }
