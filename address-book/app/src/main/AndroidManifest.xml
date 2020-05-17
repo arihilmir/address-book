@@ -9,15 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".groupslistactivity.GroupsListActivity" />
-        <activity android:name=".editcontact.EditContactActivity" />
-        <activity android:name=".contactsdetail.ContactsDetailActivity" />
-        <activity android:name=".contactslist.ContactsListActivity">
+        <activity android:name=".groupslistactivity.GroupsListActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".editcontact.EditContactActivity" />
+        <activity android:name=".contactsdetail.ContactsDetailActivity" />
+        <activity android:name=".contactslist.ContactsListActivity">
+
         </activity>
 
         <meta-data

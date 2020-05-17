@@ -6,4 +6,5 @@
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
+    <dimen name="default_margin">15dp</dimen>
 </resources>
