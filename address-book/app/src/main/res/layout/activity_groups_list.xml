@@ -21,6 +21,7 @@
             android:orientation="horizontal">
 
             <SearchView
+                android:id="@+id/search_groups"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"

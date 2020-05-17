@@ -24,4 +24,10 @@ class GroupsListViewModel(application: Application): AndroidViewModel(applicatio
     fun findGroups(withName: String): LiveData<List<Group>> {
         return repository.findGroups(withName)
     }
+
+    fun saveGroupChanges(groups: List<Group>) {
+        groups.forEach{
+            repository.insert(it)
+        }
+    }
 }
