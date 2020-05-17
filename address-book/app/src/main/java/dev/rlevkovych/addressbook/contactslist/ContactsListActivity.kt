@@ -68,6 +68,18 @@ class ContactsListActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
+        val nav_btn = findViewById<Button>(R.id.navigation_button)
+        if (option == AccountDisplayOption.All)
+            nav_btn.text = "Groups"
+        else
+            nav_btn.text = "All"
+        nav_btn.setOnClickListener {
+            val intent = Intent(this, ContactsListActivity::class.java).apply {
+                putExtra("dataConfig", nav_btn.text.toString().toLowerCase())
+            }
+
+            startActivity(intent)
+        }
     }
 
     class CustomViewModelFactory(private val application: Application, private val option: AccountDisplayOption) : ViewModelProvider.Factory {
