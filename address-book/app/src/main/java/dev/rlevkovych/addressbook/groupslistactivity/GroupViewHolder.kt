@@ -11,14 +11,10 @@ import dev.rlevkovych.addressbook.data.entities.Group
 class GroupViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     RecyclerView.ViewHolder(inflater.inflate(R.layout.groups_list_item, parent, false)) {
 
-    private var isDisplayed: CheckBox? = null
-
-    init {
-        isDisplayed = itemView.findViewById(R.id.is_displayed)
-    }
+    var isDisplayed: CheckBox = itemView.findViewById(R.id.is_displayed)
 
     fun bind(group: Group) {
-        isDisplayed?.isChecked = group.isActive
-        isDisplayed?.text = group.name
+        isDisplayed.isChecked = group.isActive
+        isDisplayed.text = group.name
     }
 }

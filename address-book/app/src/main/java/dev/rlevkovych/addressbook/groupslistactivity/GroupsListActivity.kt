@@ -25,12 +25,13 @@ class GroupsListActivity : AppCompatActivity() {
 
     private lateinit var viewModel: GroupsListViewModel
     private val intentConfigKey = "dataConfig"
-    var groupsAdapter = GroupsListAdapter()
+    lateinit var groupsAdapter: GroupsListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_groups_list)
         viewModel = ViewModelProvider(this).get(GroupsListViewModel::class.java)
+        groupsAdapter = GroupsListAdapter(viewModel.repository)
 
         configRecyclerView()
         configNavigation()
@@ -67,7 +68,10 @@ class GroupsListActivity : AppCompatActivity() {
     private fun configSearch() {
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                // doStuff
+                viewModel.findGroups(query).observe(this, Observer {
+                    groupsAdapter.setData(it)
+                    Toast.makeText(applicationContext, it.size, Toast.LENGTH_LONG)
+                })
             }
         }
     }

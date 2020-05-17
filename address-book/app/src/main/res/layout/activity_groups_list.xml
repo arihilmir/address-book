@@ -25,7 +25,9 @@
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginEnd="@dimen/default_margin"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:iconifiedByDefault="false"
+                />
 
             <Button
                 android:id="@+id/display_all_contacts"

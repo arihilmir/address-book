@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="10dp"
+        android:text="Groups"
         android:layout_marginTop="10dp"
         />
 

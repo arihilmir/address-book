@@ -31,16 +31,12 @@ class ContactsListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contacts_list)
 
         val option = AccountDisplayOption
-            .valueOf(intent.getStringExtra("dataConfig") ?: "Groups")
+            .valueOf(intent.getStringExtra("dataConfig") ?: "All")
         viewModel =
             ViewModelProvider(this, CustomViewModelFactory(application, option))
                 .get(ContactsListViewModel::class.java)
 
         configRecyclerView()
-        navigation_button.text = when (option) {
-            AccountDisplayOption.Groups -> AccountDisplayOption.All.toString()
-            AccountDisplayOption.All -> AccountDisplayOption.Groups.toString()
-        }
         configNavigation()
 
     }
