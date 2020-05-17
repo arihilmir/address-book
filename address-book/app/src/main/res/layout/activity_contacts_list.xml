@@ -29,9 +29,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

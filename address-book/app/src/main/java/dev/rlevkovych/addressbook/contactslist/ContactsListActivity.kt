@@ -3,6 +3,7 @@ package dev.rlevkovych.addressbook.contactslist
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -37,6 +38,12 @@ class ContactsListActivity : AppCompatActivity() {
                     adapter = contactsAdapter
                 }
                 contactsAdapter.submitList(items)
+                contactsAdapter.onItemClick = { contact ->
+                    val intent = Intent(this, ContactsDetailActivity::class.java).apply {
+                        putExtra("contactId", contact.id)
+                    }
+                    startActivity(intent)
+                }
             } else {
                 Toast.makeText(this, "No data", Toast.LENGTH_LONG).show()
             }

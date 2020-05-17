@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.layout_contact_list_item.view.*
 
 class ContactsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items : List<Contact> = ArrayList()
+    var onItemClick: ((Contact) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ContactViewHolder(
@@ -33,10 +34,16 @@ class ContactsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         items = contactList
     }
 
-    class ContactViewHolder constructor(
+    inner class ContactViewHolder constructor(
             itemView: View
     ): RecyclerView.ViewHolder(itemView) {
         val title = itemView.tv_label
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick?.invoke(items[adapterPosition])
+            }
+        }
 
         fun bind(contact: Contact) {
             title.setText(contact.name);
