@@ -15,6 +15,6 @@ class ContactsListViewModel(application: Application): AndroidViewModel(applicat
     init {
         val contactsDao = ContactsDataBase.getInstance(application).contactDao()
         repository = ContactsRepository(contactsDao)
-        allContacts = repository.allContacts
+        allContacts = repository.contactsFromActiveGroups
     }
 }

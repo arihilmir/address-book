@@ -15,6 +15,7 @@ class ContactsRepository(private val contactsDao: ContactsDao) {
 
     val allContacts: LiveData<List<Contact>> = contactsDao.getContacts()
     val allGroups: LiveData<List<Group>> = contactsDao.getGroups()
+    val contactsFromActiveGroups: LiveData<List<Contact>> = contactsDao.getContactsFromActiveGroups()
 
     fun getContact(id: String) : LiveData<Contact?> {
         return contactsDao.getContactsById(id)
