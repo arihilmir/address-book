@@ -7,7 +7,11 @@ import dev.rlevkovych.addressbook.data.entities.Contact
 import dev.rlevkovych.addressbook.data.ContactsRepository
 import dev.rlevkovych.addressbook.data.source.local.ContactsDataBase
 
-class ContactsListViewModel(application: Application): AndroidViewModel(application) {
+enum class AccountDisplayOption {
+    All, Groups
+}
+
+class ContactsListViewModel(application: Application, option: AccountDisplayOption): AndroidViewModel(application) {
     private val repository: ContactsRepository
 
     val allContacts: LiveData<List<Contact>>
@@ -15,6 +19,9 @@ class ContactsListViewModel(application: Application): AndroidViewModel(applicat
     init {
         val contactsDao = ContactsDataBase.getInstance(application).contactDao()
         repository = ContactsRepository(contactsDao)
-        allContacts = repository.allContacts
+        if (option == AccountDisplayOption.All)
+            allContacts = repository.allContacts
+        else
+            allContacts = repository.contactsFromActiveGroups
     }
 }

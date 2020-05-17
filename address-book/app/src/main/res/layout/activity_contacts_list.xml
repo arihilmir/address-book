@@ -6,14 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".contactslist.ContactsListActivity">
 
+    <Button
+        android:id="@+id/navigation_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_buttom"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contactsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/openContact"
