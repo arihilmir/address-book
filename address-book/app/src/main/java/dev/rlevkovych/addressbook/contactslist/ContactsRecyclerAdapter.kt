@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.rlevkovych.addressbook.R
-import dev.rlevkovych.addressbook.data.Contact
+import dev.rlevkovych.addressbook.data.entities.Contact
 import kotlinx.android.synthetic.main.layout_contact_list_item.view.*
 
 class ContactsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
