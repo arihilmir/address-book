@@ -28,6 +28,7 @@
                 android:layout_weight="1" />
 
             <Button
+                android:id="@+id/display_all_contacts"
                 android:layout_width="101dp"
                 android:enabled="true"
                 android:layout_height="wrap_content"
@@ -44,7 +45,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/load_contacts_by_group"
+        android:id="@+id/display_contacts_by_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingEnd="15dp"
