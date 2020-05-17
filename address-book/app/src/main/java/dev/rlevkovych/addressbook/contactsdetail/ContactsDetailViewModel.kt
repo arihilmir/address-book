@@ -1,4 +1,4 @@
-package dev.rlevkovych.addressbook.contactslist
+package dev.rlevkovych.addressbook.contactsdetail
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,7 +7,7 @@ import dev.rlevkovych.addressbook.data.entities.Contact
 import dev.rlevkovych.addressbook.data.ContactsRepository
 import dev.rlevkovych.addressbook.data.source.local.ContactsDataBase
 
-class ContactsListViewModel(application: Application): AndroidViewModel(application) {
+class ContactsDetailViewModel(application: Application): AndroidViewModel(application) {
     private val repository: ContactsRepository
 
     val allContacts: LiveData<List<Contact>>
@@ -16,5 +16,9 @@ class ContactsListViewModel(application: Application): AndroidViewModel(applicat
         val contactsDao = ContactsDataBase.getInstance(application).contactDao()
         repository = ContactsRepository(contactsDao)
         allContacts = repository.allContacts
+    }
+
+    fun delete(id: String) {
+        repository.delete(id)
     }
 }
