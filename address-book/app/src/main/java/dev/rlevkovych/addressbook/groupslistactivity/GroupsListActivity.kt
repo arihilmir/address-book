@@ -1,8 +1,10 @@
 package dev.rlevkovych.addressbook.groupslistactivity
 
+import android.app.SearchManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -32,6 +34,7 @@ class GroupsListActivity : AppCompatActivity() {
 
         configRecyclerView()
         configNavigation()
+        configSearch()
     }
 
     private fun configNavigation() {
@@ -59,5 +62,13 @@ class GroupsListActivity : AppCompatActivity() {
         viewModel.availableGroups.observe(this, Observer {
             groupsAdapter.setData(it)
         })
+    }
+
+    private fun configSearch() {
+        if (Intent.ACTION_SEARCH == intent.action) {
+            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+                // doStuff
+            }
+        }
     }
 }
