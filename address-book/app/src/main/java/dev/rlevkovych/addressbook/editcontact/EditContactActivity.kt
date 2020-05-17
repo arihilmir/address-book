@@ -27,31 +27,33 @@ class EditContactActivity : AppCompatActivity() {
         viewModel.allContacts.observe(this, Observer { items ->
             if (items.isNotEmpty()) {
                 contact = items.find { contact -> contact.id == contactId }
+                if (contact != null) {
 
-                val userName = findViewById<TextView>(R.id.userName)
-                userName.text = contact!!.name;
+                    val userName = findViewById<TextView>(R.id.userName)
+                    userName.text = contact!!.name;
 
-                val userPhone = findViewById<TextView>(R.id.userPhone)
-                userPhone.text = contact!!.phoneNumber;
+                    val userPhone = findViewById<TextView>(R.id.userPhone)
+                    userPhone.text = contact!!.phoneNumber;
 
-                val userEmail = findViewById<TextView>(R.id.userEmail)
-                userEmail.text = contact!!.email
+                    val userEmail = findViewById<TextView>(R.id.userEmail)
+                    userEmail.text = contact!!.email
 
-                val userStreet = findViewById<TextView>(R.id.userStreet)
-                userStreet.text = contact!!.street;
+                    val userStreet = findViewById<TextView>(R.id.userStreet)
+                    userStreet.text = contact!!.street;
 
-                val userCity = findViewById<TextView>(R.id.userCity)
-                userCity.text = contact!!.city;
+                    val userCity = findViewById<TextView>(R.id.userCity)
+                    userCity.text = contact!!.city;
 
-                val userState = findViewById<TextView>(R.id.userState)
-                userState.text = contact!!.state
+                    val userState = findViewById<TextView>(R.id.userState)
+                    userState.text = contact!!.state
 
-                if (contact!!.zip != null) {
-                    val userZip = findViewById<TextView>(R.id.userZip)
-                    userZip.text = contact!!.zip.toString();
-                } else {
-                    val userZip = findViewById<TextView>(R.id.userZip)
-                    userZip.text = "";
+                    if (contact!!.zip != null) {
+                        val userZip = findViewById<TextView>(R.id.userZip)
+                        userZip.text = contact!!.zip.toString();
+                    } else {
+                        val userZip = findViewById<TextView>(R.id.userZip)
+                        userZip.text = "";
+                    }
                 }
             } else {
                 Toast.makeText(this, "No data", Toast.LENGTH_LONG).show()
