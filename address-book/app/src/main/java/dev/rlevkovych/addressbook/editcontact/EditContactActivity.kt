@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import dev.rlevkovych.addressbook.R
 import dev.rlevkovych.addressbook.contactsdetail.ContactsDetailActivity
+import dev.rlevkovych.addressbook.contactslist.ContactsListActivity
 import dev.rlevkovych.addressbook.data.entities.Contact
 
 class EditContactActivity : AppCompatActivity() {
@@ -28,7 +29,6 @@ class EditContactActivity : AppCompatActivity() {
             if (items.isNotEmpty()) {
                 contact = items.find { contact -> contact.id == contactId }
                 if (contact != null) {
-
                     val userName = findViewById<TextView>(R.id.userName)
                     userName.text = contact!!.name;
 
@@ -68,29 +68,30 @@ class EditContactActivity : AppCompatActivity() {
             val state = findViewById<TextView>(R.id.userState).text.toString()
             val zip = findViewById<TextView>(R.id.userZip).text.toString()
 
-            var newContact = Contact(
+            val newContact = Contact(
                 findViewById<TextView>(R.id.userName).text.toString(),
                 findViewById<TextView>(R.id.userPhone).text.toString(),
                 findViewById<TextView>(R.id.userEmail).text.toString(),
 
-                if(street == "") null else street,
-                if(city == "") null else city,
-                if(state == "") null else state,
-                if(zip == "") null else zip.toInt()
+                if (street == "") null else street,
+                if (city == "") null else city,
+                if (state == "") null else state,
+                if (zip == "") null else zip.toInt(),
+                null
             );
 
-            if(contactId != null){
+            if (contactId != null) {
                 newContact.id = contactId
                 viewModel.update(newContact)
-            }
-            else{
+                val intent = Intent(this, ContactsDetailActivity::class.java).apply {
+                    putExtra("contactId", contactId)
+                }
+                startActivity(intent)
+            } else {
                 viewModel.create(newContact)
+                val intent = Intent(this, ContactsListActivity::class.java)
+                startActivity(intent)
             }
-
-            val intent = Intent(this, ContactsDetailActivity::class.java).apply {
-                putExtra("contactId", contactId)
-            }
-            startActivity(intent)
         }
     }
 }
