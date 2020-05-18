@@ -84,47 +84,34 @@ class ContactsListActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        val menuItem = menu!!.findItem(R.id.contactsSearch)
+        val searchView = findViewById<SearchView>(R.id.contactsSearchView)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
 
-        if (menuItem != null) {
-            val searchView = menuItem.actionView as androidx.appcompat.widget.SearchView
-            searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return true
-                }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText!!.isNotEmpty()) {
+                    contactsDisplayed.clear()
+                    val searchTerm = newText.toString().toLowerCase()
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    if (newText!!.isNotEmpty()) {
-                        contactsDisplayed.clear()
-                        val searchTerm = newText.toString().toLowerCase()
-
-                        contactsAll.forEach {
-                            if (it.name.toLowerCase().contains(searchTerm)) {
-                                contactsDisplayed.add(it)
-                            }
+                    contactsAll.forEach {
+                        if (it.name.toLowerCase().contains(searchTerm)) {
+                            contactsDisplayed.add(it)
                         }
-
-                        contactsAdapter.notifyDataSetChanged()
-                    } else {
-                        contactsDisplayed.clear()
-                        contactsDisplayed.addAll(contactsAll)
-                        contactsAdapter.notifyDataSetChanged()
                     }
-                    return true
+
+                    contactsAdapter.notifyDataSetChanged()
+                } else {
+                    contactsDisplayed.clear()
+                    contactsDisplayed.addAll(contactsAll)
+                    contactsAdapter.notifyDataSetChanged()
                 }
+                return true
+            }
 
-            })
-        }
-
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
+        })
     }
 
     class CustomViewModelFactory(private val application: Application, private val option: AccountDisplayOption) : ViewModelProvider.Factory {
