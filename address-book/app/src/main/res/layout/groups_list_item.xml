@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="15dp"
         android:paddingStart="15dp"
+        android:textSize="18sp"
         tools:ignore="RtlSymmetry"
         tools:text="ExampleText"/>
 

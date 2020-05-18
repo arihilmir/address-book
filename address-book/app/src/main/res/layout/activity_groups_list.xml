@@ -34,6 +34,7 @@
                 android:layout_width="101dp"
                 android:enabled="true"
                 android:layout_height="wrap_content"
+                style="@android:style/TextAppearance.Medium"
                 android:background="@drawable/button_con"
                 android:elevation="14dp"
                 android:text="@string/all" />
@@ -46,6 +47,7 @@
             android:textAlignment="textStart"
             android:drawablePadding="@dimen/default_margin"
             android:drawableLeft="@drawable/add_sign"
+            android:layout_marginStart="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
