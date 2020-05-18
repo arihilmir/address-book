@@ -9,11 +9,9 @@
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:src="@drawable/anonymous"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#FF000000"/>
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/anonymous"/>
 
     <TextView
         android:id="@+id/tv_label"
@@ -21,6 +19,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
+        android:textSize="24dp"
         />
 
 </LinearLayout>

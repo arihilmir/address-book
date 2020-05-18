@@ -5,10 +5,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.rlevkovych.addressbook.R
 import dev.rlevkovych.addressbook.contactsdetail.ContactsDetailActivity
+import dev.rlevkovych.addressbook.data.entities.Contact
 import dev.rlevkovych.addressbook.editcontact.EditContactActivity
 import dev.rlevkovych.addressbook.groupslistactivity.GroupsListActivity
 import kotlinx.android.synthetic.main.activity_contacts_list.*
@@ -24,7 +24,10 @@ import kotlinx.android.synthetic.main.activity_contacts_list.*
 class ContactsListActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ContactsListViewModel
-    private var contactsAdapter = ContactsRecyclerAdapter()
+    private lateinit var contactId: String
+    private lateinit var contactsAdapter: ContactsRecyclerAdapter
+    private lateinit var contactsAll: MutableList<Contact>
+    private lateinit var contactsDisplayed: MutableList<Contact>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +59,22 @@ class ContactsListActivity : AppCompatActivity() {
 
         viewModel.allContacts.observe(this, Observer { items ->
             if (items.isNotEmpty()) {
-                 contactsAdapter.submitList(items)
+                contactId = items.first().id
+                contactsAll = items.toMutableList()
+                contactsDisplayed = items.toMutableList()
+
+                contactsRecyclerView.apply {
+                    layoutManager = LinearLayoutManager(this@ContactsListActivity)
+                    contactsAdapter = ContactsRecyclerAdapter()
+                    adapter = contactsAdapter
+                }
+                contactsAdapter.submitList(contactsDisplayed)
+                contactsAdapter.onItemClick = { contact ->
+                    val intent = Intent(this, ContactsDetailActivity::class.java).apply {
+                        putExtra("contactId", contact.id)
+                    }
+                    startActivity(intent)
+                }
             } else {
                 Toast.makeText(this, "No data", Toast.LENGTH_LONG).show()
             }
@@ -73,6 +91,34 @@ class ContactsListActivity : AppCompatActivity() {
             val intent = Intent(this, EditContactActivity::class.java)
             startActivity(intent)
         }
+
+        val searchView = findViewById<SearchView>(R.id.contactsSearchView)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText!!.isNotEmpty()) {
+                    contactsDisplayed.clear()
+                    val searchTerm = newText.toString().toLowerCase()
+
+                    contactsAll.forEach {
+                        if (it.name.toLowerCase().contains(searchTerm)) {
+                            contactsDisplayed.add(it)
+                        }
+                    }
+
+                    contactsAdapter.notifyDataSetChanged()
+                } else {
+                    contactsDisplayed.clear()
+                    contactsDisplayed.addAll(contactsAll)
+                    contactsAdapter.notifyDataSetChanged()
+                }
+                return true
+            }
+
+        })
     }
 
     class CustomViewModelFactory(
