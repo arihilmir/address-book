@@ -18,6 +18,7 @@ import dev.rlevkovych.addressbook.R
 import dev.rlevkovych.addressbook.contactsdetail.ContactsDetailActivity
 import dev.rlevkovych.addressbook.data.entities.Contact
 import dev.rlevkovych.addressbook.editcontact.EditContactActivity
+import dev.rlevkovych.addressbook.groupslistactivity.GroupsListActivity
 import kotlinx.android.synthetic.main.activity_contacts_list.*
 
 class ContactsListActivity : AppCompatActivity() {
@@ -33,15 +34,19 @@ class ContactsListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contacts_list)
 
         val configValue = intent.getStringExtra("dataConfig")
+        val groupNames = intent.getStringExtra("activeGroups")?.split(",")?.toList()
         var option: AccountDisplayOption
         if (configValue == null)
             option = AccountDisplayOption.All
-        else if (configValue == "all")
+        else if (configValue == AccountDisplayOption.All.toString())
             option = AccountDisplayOption.All
         else
             option = AccountDisplayOption.Groups
 
-        viewModel = ViewModelProviders.of(this, CustomViewModelFactory(this.getApplication(), option)).get(ContactsListViewModel::class.java)
+        viewModel =
+            ViewModelProviders.of(this, CustomViewModelFactory(this.getApplication(), option, groupNames))
+                .get(ContactsListViewModel::class.java)
+
         viewModel.allContacts.observe(this, Observer { items ->
             if (items.isNotEmpty()) {
                 contactId = items.first().id
@@ -65,7 +70,7 @@ class ContactsListActivity : AppCompatActivity() {
             }
         })
 
-        val button = findViewById<Button>(R.id.openContact)
+        val button = findViewById<ImageButton>(R.id.openContact)
         button.setOnClickListener {
             val intent = Intent(this, EditContactActivity::class.java).apply {
             }
@@ -74,15 +79,19 @@ class ContactsListActivity : AppCompatActivity() {
         }
         val nav_btn = findViewById<Button>(R.id.navigation_button)
         if (option == AccountDisplayOption.All)
-            nav_btn.text = "Groups"
+            nav_btn.text = AccountDisplayOption.Groups.toString()
         else
-            nav_btn.text = "All"
+            nav_btn.text = AccountDisplayOption.All.toString()
         nav_btn.setOnClickListener {
-            val intent = Intent(this, ContactsListActivity::class.java).apply {
-                putExtra("dataConfig", nav_btn.text.toString().toLowerCase())
+            if (option == AccountDisplayOption.Groups) {
+                val intent = Intent(this, ContactsListActivity::class.java).apply {
+                    putExtra("dataConfig", AccountDisplayOption.All.toString())
+                }
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, GroupsListActivity::class.java)
+                startActivity(intent)
             }
-
-            startActivity(intent)
         }
 
         val searchView = findViewById<SearchView>(R.id.contactsSearchView)
@@ -114,9 +123,13 @@ class ContactsListActivity : AppCompatActivity() {
         })
     }
 
-    class CustomViewModelFactory(private val application: Application, private val option: AccountDisplayOption) : ViewModelProvider.Factory {
+    class CustomViewModelFactory(
+        private val application: Application,
+        private val option: AccountDisplayOption,
+        private val groups: List<String>?
+    ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return ContactsListViewModel(application, option) as T
+            return ContactsListViewModel(application, option, groups) as T
         }
 
     }

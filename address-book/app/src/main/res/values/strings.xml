@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AddressBook</string>
+    <string name="all">ALL</string>
+    <string name="add_group">add group</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
+    <string name="new_group">New Group:</string>
 </resources>
