@@ -68,7 +68,7 @@ class GroupsListActivity : AppCompatActivity() {
 
             val alertDialog = builder.show()
 
-            alertDialog.new_group_name.addTextChangedListener(object: TextWatcher {
+            alertDialog.new_group_name.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                 }
 
@@ -81,7 +81,9 @@ class GroupsListActivity : AppCompatActivity() {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    if(!s.isNullOrEmpty()) { alertDialog.create_new_group.isEnabled = true }
+                    if (!s.isNullOrEmpty()) {
+                        alertDialog.create_new_group.isEnabled = true
+                    }
                 }
             })
             alertDialog.cancel_button.setOnClickListener {
@@ -117,6 +119,9 @@ class GroupsListActivity : AppCompatActivity() {
         display_contacts_by_group.setOnClickListener {
             val intent = Intent(this, ContactsListActivity::class.java).apply {
                 putExtra(intentConfigKey, AccountDisplayOption.Groups.toString())
+                putExtra("activeGroups", groupsAdapter.groups
+                    ?.filter { it.isActive }
+                    ?.joinToString(",") { it.name })
             }
             startActivity(intent)
         }
@@ -130,6 +135,9 @@ class GroupsListActivity : AppCompatActivity() {
 
         viewModel.availableGroups.observe(this, Observer {
             groupsAdapter.setData(it)
+            Log.e(
+                "ContactsListActivity",
+                it.fold("") { acc, group -> acc + group.name + " " + group.isActive + "\n" })
         })
     }
 

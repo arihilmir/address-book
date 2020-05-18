@@ -3,6 +3,7 @@ package dev.rlevkovych.addressbook.groupslistactivity
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import dev.rlevkovych.addressbook.data.ContactsRepository
 import dev.rlevkovych.addressbook.data.entities.Group

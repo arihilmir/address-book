@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.rlevkovych.addressbook.data.entities.Group
 
 class GroupsListAdapter : RecyclerView.Adapter<GroupViewHolder>() {
-    private var groups: List<Group>? = null
+    var groups: List<Group>? = null
     var modifiedGroups: List<Group> = listOf()
         private set
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {

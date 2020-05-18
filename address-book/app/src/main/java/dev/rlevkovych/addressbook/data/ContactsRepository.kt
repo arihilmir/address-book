@@ -5,13 +5,12 @@ import androidx.lifecycle.*
 import dev.rlevkovych.addressbook.data.entities.Contact
 import dev.rlevkovych.addressbook.data.entities.Group
 import dev.rlevkovych.addressbook.data.source.local.ContactsDao
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class ContactsRepository(private val contactsDao: ContactsDao) {
 
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private var job: Job = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.IO + job)
 
     val allContacts: LiveData<List<Contact>> = contactsDao.getContacts()
     val allGroups: LiveData<List<Group>> = contactsDao.getGroups()
@@ -62,8 +61,16 @@ class ContactsRepository(private val contactsDao: ContactsDao) {
     }
 
     fun insert(group: Group) {
-        coroutineScope.launch {
-            contactsDao.insert(group)
+        InsertGroupAsyncTask(contactsDao).execute(group)
+    }
+
+
+    private class InsertGroupAsyncTask internal constructor(private val insertContactsDao: ContactsDao) :
+        AsyncTask<Group, Void, Void>() {
+
+        override fun doInBackground(vararg params: Group): Void? {
+            insertContactsDao.insert(params[0])
+            return null
         }
     }
 
