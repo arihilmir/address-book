@@ -4,9 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -25,6 +23,16 @@ class ContactsDetailActivity : AppCompatActivity() {
 
         val contactId = intent.getStringExtra("contactId")
         var contact: Contact? = Contact("", "");
+
+        val spinner: Spinner = findViewById(R.id.userGroup)
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.groups,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
 
         viewModel = ViewModelProviders.of(this).get(ContactsDetailViewModel::class.java)
         viewModel.allContacts.observe(this, Observer { items ->
